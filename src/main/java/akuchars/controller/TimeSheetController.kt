@@ -13,7 +13,8 @@ class TimeSheetController : tornadofx.Controller() {
 	// todo akuchars tutaj to powinno być wstrzyknięte
 	// todo akkuchars przerobić na fasadę, żeby można było użyć inne
 	private val tooglCredential: TooglCredential = TooglCredential()
-	private val jiraClient = createWithExtraClients(JiraCredential())
+	private val jiraCredential: JiraCredential = JiraCredential()
+	private val jiraClient = createWithExtraClients(jiraCredential)
 
 	fun worklogsForPeriod(command: SendWorklogActionCommand): PeriodTimeEntry =
 		PeriodTimeEntry(getTooglWorkLogs(command, tooglCredential.apiToken))
@@ -60,7 +61,7 @@ class TimeSheetController : tornadofx.Controller() {
 		return timeEntriesByDay.flatMap { dayTimeEntry ->
 			dayTimeEntry.workingEntries.map { information ->
 				WorkLogDto(
-					"akuchars",
+					jiraCredential.user,
 					information.description.values(),
 					dayTimeEntry.day.toString(),
 					dayTimeEntry.day.toString(),
