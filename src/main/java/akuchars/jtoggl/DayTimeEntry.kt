@@ -1,5 +1,9 @@
 package akuchars.jtoggl
 
+import akuchars.kernel.properties
+import com.natpryce.konfig.Key
+import com.natpryce.konfig.listType
+import com.natpryce.konfig.stringType
 import java.time.LocalDate
 import java.util.*
 
@@ -39,10 +43,13 @@ class DayTimeEntry(val day: LocalDate?,
 	}
 
 	fun fixToWorkHour() {
+		val notFixingIssuesList: List<String> = properties[Key("issue.to.not.fixing.hours", listType(stringType, ";".toRegex()))]
 		if (!isWorkHoursDone && workingEntries.isNotEmpty()) {
 			val howManyToAdd: HoursMinutes = (HoursMinutes.workHours() - hoursMinutes)
-				.countAverage(workingEntries.size)
-			workingEntries.forEach { it.fixHour(howManyToAdd) }
+				.countAverage(workingEntries.size - notFixingIssuesList.size)
+			workingEntries
+				.filterNot { notFixingIssuesList.contains(it.key) }
+				.forEach { it.fixHour(howManyToAdd) }
 		}
 	}
 
