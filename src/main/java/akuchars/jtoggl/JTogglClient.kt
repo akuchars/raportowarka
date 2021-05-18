@@ -140,7 +140,7 @@ class JTogglClient(private val user: String?, private val password: String) {
 		}
 
 	companion object {
-		private const val API_ROOT = "https://www.toggl.com/api"
+		private const val API_ROOT = "https://api.track.toggl.com/api"
 		private const val API_VERSION = 8
 		private val API_BASE = String.format("%s/v%d/", API_ROOT, API_VERSION)
 		private const val PLACEHOLDER = "{0}"

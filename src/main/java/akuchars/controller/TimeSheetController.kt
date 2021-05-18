@@ -11,7 +11,7 @@ import kotlin.math.max
 
 class TimeSheetController : tornadofx.Controller() {
 	// todo akuchars tutaj to powinno być wstrzyknięte
-	// todo akkuchars przerobić na fasadę, żeby można było użyć inne
+	// todo akuchars przerobić na fasadę, żeby można było użyć inne
 	private val tooglCredential: TooglCredential = TooglCredential()
 	private val jiraCredential: JiraCredential = JiraCredential()
 	private val jiraClient = createWithExtraClients(jiraCredential)
