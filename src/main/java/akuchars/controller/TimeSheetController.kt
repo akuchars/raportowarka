@@ -6,6 +6,7 @@ import akuchars.jira.timesheetClient
 import akuchars.jira.timesheets.TimesheetRestClient
 import akuchars.jira.timesheets.dto.WorkLogDto
 import akuchars.jtoggl.*
+import com.atlassian.util.concurrent.Effect
 import com.google.gson.Gson
 import kotlin.math.max
 
@@ -22,9 +23,12 @@ class TimeSheetController : tornadofx.Controller() {
 	fun createForPeriod(command: SendWorklogActionCommand) {
 		val timeEntriesByDay = getTooglWorkLogs(command, tooglCredential.apiToken)
 
-		val workLogsDto = mapToJiraWorkLog(timeEntriesByDay) {
-			val currentRemaining = (jiraClient.issueClient.getIssue(it.key).claim().timeTracking?.remainingEstimateMinutes ?: 0) * 60
-			max((currentRemaining - it.hoursMinutes.duration) / 60, 0).toInt()
+		val workLogsDto = mapToJiraWorkLog(timeEntriesByDay) { timeEntry ->
+			val currentRemaining = (jiraClient.issueClient.getIssue(timeEntry.key)
+				.fail { System.err.println("Cannot find issue by key: ${timeEntry.key}") }
+				.claim()
+				.timeTracking?.remainingEstimateMinutes ?: 0) * 60
+			max((currentRemaining - timeEntry.hoursMinutes.duration) / 60, 0).toInt()
 		}
 		print(workLogsDto)
 

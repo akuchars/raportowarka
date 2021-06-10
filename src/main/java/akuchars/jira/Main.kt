@@ -25,7 +25,7 @@ class Main {
 				null
 			))
 
-			val claim = jiraClient.issueClient.getIssue("PIT-1317").claim()
+			val claim = jiraClient.issueClient.getIssue("VGPORD-323").claim()
 			claim.affectedVersions
 
 		}
