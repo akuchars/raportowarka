@@ -8,11 +8,17 @@ import javafx.scene.control.DatePicker
 import javafx.scene.control.Label
 import javafx.scene.layout.BorderPane
 import tornadofx.*
+import java.awt.Desktop
+import java.net.URI
 import java.time.LocalDate
 import java.time.LocalDate.now
+import java.time.temporal.TemporalAdjusters
+import java.time.temporal.TemporalAdjusters.firstDayOfMonth
+import java.time.temporal.TemporalAdjusters.lastDayOfMonth
+
 
 class MainView : View("Raportowarka v2") {
-	// todo akuchars przerobić na fxml
+	// todo akuchars przerobić na fxml/vaddin
 	override val root = BorderPane()
 	private var result: Label by singleAssign()
 	private var start: DatePicker by singleAssign()
@@ -20,7 +26,7 @@ class MainView : View("Raportowarka v2") {
 	private var production: CheckBox by singleAssign()
 	private var honest: CheckBox by singleAssign()
 	private var sendBtn: Button by singleAssign()
-	private var sendBtnToday : Button by singleAssign()
+	private var sendBtnToday: Button by singleAssign()
 
 	private val controller: TimeSheetController by inject()
 
@@ -61,6 +67,15 @@ class MainView : View("Raportowarka v2") {
 							sendBtnToday = this
 						}.action {
 							sendWorklogToTimeSheetToday()
+						}
+						hyperlink(
+							text = "Tempo in jira"
+						).action {
+							val url = JIRA_TEMPO_URL.format(now().with(firstDayOfMonth()), now().with(lastDayOfMonth()))
+
+							if (Desktop.isDesktopSupported()) {
+								kotlin.runCatching { Desktop.getDesktop().browse(URI(url)) }
+							}
 						}
 					}
 				}
@@ -108,6 +123,21 @@ class MainView : View("Raportowarka v2") {
 			sendBtn.isDisable = false
 			sendBtnToday.isDisable = false
 		}
+	}
+
+	companion object {
+		// todo akuchars move to controller
+		private const val JIRA_TEMPO_URL = "https://jira.unity.pl/secure/Tempo.jspa#/my-work/timesheet?" +
+			"columns=WORKED_COLUMN" +
+			"&columns=PLAN_COLUMN&dateDisplayType=days" +
+			"&from=%s" +
+			"&groupBy=project" +
+			"&groupBy=issue" +
+			"&periodType=CURRENT_PERIOD" +
+			"&subPeriodType=MONTH" +
+			"&to=%s" +
+			"&viewType=TIMESHEET" +
+			"&worker=akuchars"
 	}
 
 }
