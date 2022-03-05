@@ -1,5 +1,6 @@
 package akuchars.jtoggl
 
+import akuchars.kernel.HoursMinutes
 import akuchars.kernel.properties
 import com.natpryce.konfig.Key
 import com.natpryce.konfig.listType
@@ -25,12 +26,12 @@ class DayTimeEntry(val day: LocalDate?,
 		}
 	}
 
-	private fun createTimeEntryInformation(key: String, e: List<TimeEntry>): TimeEntryInformation {
+	private fun createTimeEntryInformation(key: String, entry: List<TimeEntry>): TimeEntryInformation {
 		return TimeEntryInformation(
 			key,
-			getDescriptionsForCurrentKeys(e),
-			getHoursMinutesForEntries(e),
-			ProjectName.resolveByCode(e[0].projectName))
+			getDescriptionsForCurrentKeys(entry),
+			getHoursMinutesForEntries(entry),
+			ProjectName.resolveByCode(entry[0].projectName))
 	}
 
 	private fun getDescriptionsForCurrentKeys(entries: List<TimeEntry>): TimeEntryDescriptions {
@@ -54,7 +55,7 @@ class DayTimeEntry(val day: LocalDate?,
 	}
 
 	init {
-		val durations = entries.map { it.duration!! }.reduce { acc, l -> acc + l }.toDouble()
+		val durations = entries.mapNotNull(TimeEntry::duration).sum().toDouble()
 		hoursMinutes = HoursMinutes(durations.toLong())
 		isWorkHoursDone = durations / 3600 >= 8.0
 		entries

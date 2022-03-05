@@ -19,6 +19,7 @@
 package akuchars.jtoggl
 
 import akuchars.jtoggl.util.DateUtil
+import akuchars.kernel.HoursMinutes
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.JSONValue

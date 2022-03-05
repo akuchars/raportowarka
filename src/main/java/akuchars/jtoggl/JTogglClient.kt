@@ -24,7 +24,7 @@ class JTogglClient(private val user: String?, private val password: String) {
 	private val timeEntries: List<TimeEntry>
 		get() = getTimeEntries(null, null)
 
-	fun getTimeEntries(startDate: Date?, endDate: Date?): List<TimeEntry> {
+	private fun getTimeEntries(startDate: Date?, endDate: Date?): List<TimeEntry> {
 		val queryParams = HashMap<String, String?>()
 		if (startDate != null && endDate != null) {
 			queryParams["start_date"] = DateUtil.convertDateToString(startDate)
@@ -49,12 +49,12 @@ class JTogglClient(private val user: String?, private val password: String) {
 	fun timeEntriesByDay(start: LocalDate, end: LocalDate): List<DayTimeEntry> {
 		val startDate = start.toDate()
 		val endDate = end.toDate()
-		return getTimeEntries(startDate, endDate).groupBy { it.day() }
+		return getTimeEntries(startDate, endDate).groupBy(TimeEntry::day)
 			.mapValues { (day, entriesByDay) -> DayTimeEntry(day, entriesByDay) }
 			.values.toList()
 	}
 
-	val workspaces: List<Workspace>
+	private val workspaces: List<Workspace>
 		get() {
 			val response = fetch(WORKSPACES)
 			val data = JSONValue.parse(response) as JSONArray

@@ -1,6 +1,7 @@
-package akuchars.jtoggl
+package akuchars.kernel
 
 import kotlin.math.ceil
+
 
 class HoursMinutes {
 	val duration: Long

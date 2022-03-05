@@ -1,6 +1,7 @@
 package akuchars.view
 
 import akuchars.controller.TimeSheetController
+import akuchars.jira.timesheets.dto.worklogs.WorklogsForm
 import akuchars.model.SendWorklogActionForm
 import javafx.scene.control.Button
 import javafx.scene.control.CheckBox
@@ -20,13 +21,16 @@ import java.time.temporal.TemporalAdjusters.lastDayOfMonth
 class MainView : View("Raportowarka v2") {
 	// todo akuchars przerobić na fxml/vaddin
 	override val root = BorderPane()
+
 	private var result: Label by singleAssign()
+	private var overtimesResult: Label by singleAssign()
 	private var start: DatePicker by singleAssign()
 	private var end: DatePicker by singleAssign()
 	private var production: CheckBox by singleAssign()
 	private var honest: CheckBox by singleAssign()
 	private var sendBtn: Button by singleAssign()
 	private var sendBtnToday: Button by singleAssign()
+	private var overtimeBtn: Button by singleAssign()
 
 	private val controller: TimeSheetController by inject()
 
@@ -57,6 +61,13 @@ class MainView : View("Raportowarka v2") {
 							result = label()
 							result.text = "Załadowano widok"
 						}
+						field("Nadgodziny: ") {
+							val overtimes  = controller.overtimeHours(
+								WorklogsForm("akuchars", now().with(firstDayOfMonth()), now().with(lastDayOfMonth()))
+							)
+							overtimesResult = label()
+							overtimesResult.text = "$overtimes"
+						}
 
 						button("Wyślij").apply {
 							sendBtn = this
@@ -81,6 +92,10 @@ class MainView : View("Raportowarka v2") {
 				}
 			}
 		}
+	}
+
+	private fun overtimeOnCurrentMonth() {
+
 	}
 
 	private fun showWorklogForCurrentPeriod() {
