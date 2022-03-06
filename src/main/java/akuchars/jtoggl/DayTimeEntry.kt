@@ -14,10 +14,15 @@ class DayTimeEntry(val day: LocalDate?,
 	private var hoursMinutes: HoursMinutes
 	val workingEntries: MutableList<TimeEntryInformation> = ArrayList()
 	private val privateEntries: MutableList<TimeEntryInformation> = ArrayList()
+	private val overtimeEntries: MutableList<TimeEntryInformation> = ArrayList()
 	val workingEntriesWithNoKey: MutableList<TimeEntryInformation> = ArrayList()
 	private val isWorkHoursDone: Boolean
 
 	private fun addToDedicatedList(timeEntryInformation: TimeEntryInformation) {
+		if (timeEntryInformation.isOvertimeEntry) {
+			overtimeEntries += timeEntryInformation
+			hoursMinutes -= timeEntryInformation.hoursMinutes
+		}
 		if (timeEntryInformation.isWorkTimeEntry) {
 			workingEntries += timeEntryInformation
 		} else {
@@ -46,11 +51,15 @@ class DayTimeEntry(val day: LocalDate?,
 	fun fixToWorkHour() {
 		val notFixingIssuesList: List<String> = properties[Key("issue.to.not.fixing.hours", listType(stringType, ";".toRegex()))]
 		if (!isWorkHoursDone && workingEntries.isNotEmpty()) {
-			val howManyToAdd: HoursMinutes = (HoursMinutes.workHours() - hoursMinutes)
-				.countAverage(workingEntries.size - notFixingIssuesList.size)
-			workingEntries
+			val workEntriesToFix = workingEntries
 				.filterNot { notFixingIssuesList.contains(it.key) }
-				.forEach { it.fixHour(howManyToAdd) }
+				.filterNot(overtimeEntries::contains);
+			if (workEntriesToFix.isNotEmpty()) {
+				val howManyToAdd: HoursMinutes = (HoursMinutes.workHours() - hoursMinutes)
+					.countAverage(workEntriesToFix.size)
+				workEntriesToFix
+					.forEach { it.fixHour(howManyToAdd) }
+			}
 		}
 	}
 

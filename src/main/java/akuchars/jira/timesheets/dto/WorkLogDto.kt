@@ -10,5 +10,5 @@ class WorkLogDto(
 	val originTaskId: String,
 	val remainingEstimate: Int,
 	val includeNonWorkingDays: Boolean = false,
-	val attributes: WorklogAttributesDto?
+	val attributes: OvertimeAttributeDto?
 )

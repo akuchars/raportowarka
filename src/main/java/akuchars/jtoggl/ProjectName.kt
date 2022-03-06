@@ -5,11 +5,11 @@ import com.natpryce.konfig.Key
 import com.natpryce.konfig.listType
 import com.natpryce.konfig.stringType
 
-class ProjectName(private val code: String, val isWorkProject: Boolean) {
+class ProjectName(private val code: String, val isWorkProject: Boolean, val isOvertimeProject: Boolean = false) {
 	companion object {
 		fun resolveByCode(code: String?): ProjectName? {
 			return Projects.values
-				.map { ProjectName(it, true) }
+				.map { ProjectName(it, true, it.equals("NADGODZINY", ignoreCase = false)) }
 				.find { it.code == code }
 		}
 	}

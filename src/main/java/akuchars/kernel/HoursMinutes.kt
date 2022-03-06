@@ -38,7 +38,7 @@ class HoursMinutes {
 	}
 
 	override fun toString(): String {
-		return "$hours H $minutes M"
+		return "${hours}H:${minutes}M"
 	}
 
 	companion object {

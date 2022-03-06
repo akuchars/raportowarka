@@ -2,6 +2,7 @@ package akuchars.view
 
 import akuchars.controller.TimeSheetController
 import akuchars.jira.timesheets.dto.worklogs.WorklogsForm
+import akuchars.kernel.HoursMinutes
 import akuchars.model.SendWorklogActionForm
 import javafx.scene.control.Button
 import javafx.scene.control.CheckBox
@@ -13,7 +14,6 @@ import java.awt.Desktop
 import java.net.URI
 import java.time.LocalDate
 import java.time.LocalDate.now
-import java.time.temporal.TemporalAdjusters
 import java.time.temporal.TemporalAdjusters.firstDayOfMonth
 import java.time.temporal.TemporalAdjusters.lastDayOfMonth
 
@@ -23,7 +23,10 @@ class MainView : View("Raportowarka v2") {
 	override val root = BorderPane()
 
 	private var result: Label by singleAssign()
-	private var overtimesResult: Label by singleAssign()
+	private var overtimes1WeekResult: Label by singleAssign()
+	private var overtimes2WeekResult: Label by singleAssign()
+	private var overtimes3WeekResult: Label by singleAssign()
+	private var overtimes4WeekResult: Label by singleAssign()
 	private var start: DatePicker by singleAssign()
 	private var end: DatePicker by singleAssign()
 	private var production: CheckBox by singleAssign()
@@ -61,14 +64,38 @@ class MainView : View("Raportowarka v2") {
 							result = label()
 							result.text = "Załadowano widok"
 						}
-						field("Nadgodziny: ") {
-							val overtimes  = controller.overtimeHours(
-								WorklogsForm("akuchars", now().with(firstDayOfMonth()), now().with(lastDayOfMonth()))
+						field("Zaraportowano:") {
+							overtimes1WeekResult = label()
+							createReportedWeekResult(
+								now().with(firstDayOfMonth()),
+								now().with(lastDayOfMonth()),
+								overtimes1WeekResult
 							)
-							overtimesResult = label()
-							overtimesResult.text = "$overtimes"
 						}
-
+//						field("Zaraportowano (2 tydzień): ") {
+//							overtimes2WeekResult = label()
+//							createReportedWeekResult(
+//								now().with(firstDayOfMonth()).plusDays(7L),
+//								now().with(firstDayOfMonth()).plusDays(13L),
+//								overtimes2WeekResult
+//							)
+//						}
+//						field("Zaraportowano (3 tydzień): ") {
+//							overtimes3WeekResult = label()
+//							createReportedWeekResult(
+//								now().with(firstDayOfMonth()).plusDays(14L),
+//								now().with(firstDayOfMonth()).plusDays(20L),
+//								overtimes3WeekResult
+//							)
+//						}
+//						field("Zaraportowano (4 tydzień): ") {
+//							overtimes4WeekResult = label()
+//							createReportedWeekResult(
+//								now().with(firstDayOfMonth()).plusDays(21L),
+//								now().with(lastDayOfMonth()),
+//								overtimes4WeekResult
+//							)
+//						}
 						button("Wyślij").apply {
 							sendBtn = this
 						}.action {
@@ -94,8 +121,11 @@ class MainView : View("Raportowarka v2") {
 		}
 	}
 
-	private fun overtimeOnCurrentMonth() {
-
+	private fun createReportedWeekResult(startDate: LocalDate, endDate: LocalDate, weekLabel: Label) {
+		val reportedTime = controller.hours(
+			WorklogsForm("akuchars", startDate, endDate)
+		)
+		weekLabel.text = "Normalny czas: ${reportedTime.time} / 40 H  \nNadgodziny: ${reportedTime.overtime}"
 	}
 
 	private fun showWorklogForCurrentPeriod() {

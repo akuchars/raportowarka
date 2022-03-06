@@ -4,11 +4,12 @@ import akuchars.jira.JiraCredential
 import akuchars.jira.createWithExtraClients
 import akuchars.jira.timesheetClient
 import akuchars.jira.timesheets.TimesheetRestClient
+import akuchars.jira.timesheets.dto.OvertimeAttributeDto
 import akuchars.jira.timesheets.dto.WorkLogDto
 import akuchars.jira.timesheets.dto.worklogs.WorklogsForm
+import akuchars.jira.timesheets.dto.worklogs.WorklogsHoursMinutes
 import akuchars.jtoggl.*
 import akuchars.kernel.HoursMinutes
-import com.atlassian.util.concurrent.Effect
 import com.google.gson.Gson
 import kotlin.math.max
 
@@ -22,8 +23,8 @@ class TimeSheetController : tornadofx.Controller() {
 	fun worklogsForPeriod(command: SendWorklogActionCommand): PeriodTimeEntry =
 		PeriodTimeEntry(getTooglWorkLogs(command, tooglCredential.apiToken))
 
-	fun overtimeHours(form: WorklogsForm): HoursMinutes {
-		return jiraClient.timesheetClient.worklogs(form).claim().toOvertime().countTime()
+	fun hours(form: WorklogsForm): WorklogsHoursMinutes {
+		return jiraClient.timesheetClient.worklogs(form).claim().countTime()
 	}
 
 	fun createForPeriod(command: SendWorklogActionCommand) {
@@ -80,7 +81,7 @@ class TimeSheetController : tornadofx.Controller() {
 					information.key,
 					resolveRemainingEstimate.invoke(information),
 					false,
-					null
+					if (information.isWorkTimeEntry) OvertimeAttributeDto() else null
 				)
 			}
 		}
