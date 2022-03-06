@@ -9,7 +9,7 @@ class ProjectName(private val code: String, val isWorkProject: Boolean, val isOv
 	companion object {
 		fun resolveByCode(code: String?): ProjectName? {
 			return Projects.values
-				.map { ProjectName(it, true, it.equals("NADGODZINY", ignoreCase = false)) }
+				.map { ProjectName(it, true, it.equals("NADGODZINY", ignoreCase = true)) }
 				.find { it.code == code }
 		}
 	}

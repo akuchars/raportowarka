@@ -33,7 +33,6 @@ class MainView : View("Raportowarka v2") {
 	private var honest: CheckBox by singleAssign()
 	private var sendBtn: Button by singleAssign()
 	private var sendBtnToday: Button by singleAssign()
-	private var overtimeBtn: Button by singleAssign()
 
 	private val controller: TimeSheetController by inject()
 
@@ -68,7 +67,7 @@ class MainView : View("Raportowarka v2") {
 							overtimes1WeekResult = label()
 							createReportedWeekResult(
 								now().with(firstDayOfMonth()),
-								now().with(lastDayOfMonth()),
+								now(),
 								overtimes1WeekResult
 							)
 						}
@@ -125,6 +124,8 @@ class MainView : View("Raportowarka v2") {
 		val reportedTime = controller.hours(
 			WorklogsForm("akuchars", startDate, endDate)
 		)
+		// todo akuchars (FEATURE) --- dodać faktyczny czas potrzebny do zaraportowania danego miesiąca
+		//  dni wolne mogę wziąć tutaj: https://apidocs.tempo.io/#user_schedule
 		weekLabel.text = "Normalny czas: ${reportedTime.time} / 40 H  \nNadgodziny: ${reportedTime.overtime}"
 	}
 
@@ -167,11 +168,15 @@ class MainView : View("Raportowarka v2") {
 			result.text = "Zadanie zakończone"
 			sendBtn.isDisable = false
 			sendBtnToday.isDisable = false
+			createReportedWeekResult(
+				now().with(firstDayOfMonth()),
+				now(),
+				overtimes1WeekResult
+			)
 		}
 	}
 
 	companion object {
-		// todo akuchars move to controller
 		private const val JIRA_TEMPO_URL = "https://jira.unity.pl/secure/Tempo.jspa#/my-work/timesheet?" +
 			"columns=WORKED_COLUMN" +
 			"&columns=PLAN_COLUMN&dateDisplayType=days" +

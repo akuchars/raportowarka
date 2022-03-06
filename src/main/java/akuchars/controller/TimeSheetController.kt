@@ -81,7 +81,7 @@ class TimeSheetController : tornadofx.Controller() {
 					information.key,
 					resolveRemainingEstimate.invoke(information),
 					false,
-					if (information.isWorkTimeEntry) OvertimeAttributeDto() else null
+					if (information.isOvertimeEntry) OvertimeAttributeDto() else null
 				)
 			}
 		}
