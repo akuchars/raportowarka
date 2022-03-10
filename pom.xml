@@ -112,8 +112,8 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        akuchars.LauncherKt
-                                    </mainClass>
+																			pl.akuchars.LauncherKt
+																		</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
