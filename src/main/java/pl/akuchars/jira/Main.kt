@@ -3,7 +3,7 @@ package pl.akuchars.jira
 import pl.akuchars.jira.timesheets.TimesheetRestClient
 import pl.akuchars.jira.timesheets.dto.WorkLogDto
 import pl.akuchars.jira.timesheets.dto.OvertimeAttributeDto
-import pl.akuchars.jira.timesheets.dto.worklogs.WorklogsForm
+import pl.akuchars.model.WorklogsForm
 import java.time.LocalDate
 
 class Main {

@@ -1,4 +1,4 @@
-package pl.akuchars.jira.timesheets.dto.worklogs
+package pl.akuchars.model
 
 import java.time.LocalDate
 

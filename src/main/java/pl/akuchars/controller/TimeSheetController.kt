@@ -6,7 +6,7 @@ import pl.akuchars.jira.timesheetClient
 import pl.akuchars.jira.timesheets.TimesheetRestClient
 import pl.akuchars.jira.timesheets.dto.OvertimeAttributeDto
 import pl.akuchars.jira.timesheets.dto.WorkLogDto
-import pl.akuchars.jira.timesheets.dto.worklogs.WorklogsForm
+import pl.akuchars.model.WorklogsForm
 import pl.akuchars.jira.timesheets.dto.worklogs.WorklogsHoursMinutes
 import pl.akuchars.jtoggl.*
 import pl.akuchars.kernel.HoursMinutes

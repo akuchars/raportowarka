@@ -1,7 +1,7 @@
 package pl.akuchars.view
 
 import pl.akuchars.controller.TimeSheetController
-import pl.akuchars.jira.timesheets.dto.worklogs.WorklogsForm
+import pl.akuchars.model.WorklogsForm
 import pl.akuchars.model.SendWorklogActionForm
 import javafx.scene.control.Button
 import javafx.scene.control.CheckBox
