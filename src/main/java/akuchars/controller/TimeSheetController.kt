@@ -15,7 +15,6 @@ import kotlin.math.max
 
 class TimeSheetController : tornadofx.Controller() {
 	// todo akuchars tutaj to powinno być wstrzyknięte
-	// todo akuchars przerobić na fasadę, żeby można było użyć inne
 	private val tooglCredential: TooglCredential = TooglCredential()
 	private val jiraCredential: JiraCredential = JiraCredential()
 	private val jiraClient = createWithExtraClients(jiraCredential)
@@ -46,7 +45,6 @@ class TimeSheetController : tornadofx.Controller() {
 			workLogsDto.forEach {
 				tryToSendWorklogToJira(jiraClient.timesheetClient, it)
 			}
-			// todo akuchars zwrócić które udało się zaraportować a które nie
 			println("Wysłano informacje do jiry")
 		}
 
