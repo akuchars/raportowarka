@@ -124,9 +124,7 @@ class MainView : View("Raportowarka v2") {
 		val reportedTime = controller.hours(
 			WorklogsForm("akuchars", startDate, endDate)
 		)
-		// todo akuchars (FEATURE) --- dodać faktyczny czas potrzebny do zaraportowania danego miesiąca
-		//  dni wolne mogę wziąć tutaj: https://apidocs.tempo.io/#user_schedule
-		weekLabel.text = "Normalny czas: ${reportedTime.time} / 40 H  \nNadgodziny: ${reportedTime.overtime}"
+		weekLabel.text = "Normalny czas: ${reportedTime.time} / ${reportedTime.requiredHours}  \nNadgodziny: ${reportedTime.overtime}"
 	}
 
 	private fun showWorklogForCurrentPeriod() {

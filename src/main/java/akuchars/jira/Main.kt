@@ -3,6 +3,9 @@ package akuchars.jira
 import akuchars.jira.timesheets.TimesheetRestClient
 import akuchars.jira.timesheets.dto.WorkLogDto
 import akuchars.jira.timesheets.dto.OvertimeAttributeDto
+import akuchars.jira.timesheets.dto.worklogs.UserScheduleForm
+import akuchars.jira.timesheets.dto.worklogs.WorklogsForm
+import java.time.LocalDate
 
 class Main {
 
@@ -29,7 +32,14 @@ class Main {
 				)
 			)
 
-			worklog.claim()
+			timesheetClient.userSchedule(
+				WorklogsForm(
+				"akuchars",
+				LocalDate.of(2022, 3, 1),
+				LocalDate.of(2022, 3, 10)
+			)
+			).claim()
+//			worklog.claim()
 //			val worklogs = timesheetClient.worklogs(WorklogsForm("akuchars", LocalDate.of(2022, 3, 1), LocalDate.of(2022, 3, 31))).claim()
 //
 //			println(worklogs.countTime())

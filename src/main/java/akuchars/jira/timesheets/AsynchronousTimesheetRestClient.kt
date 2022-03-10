@@ -1,6 +1,8 @@
 package akuchars.jira.timesheets
 
 import akuchars.jira.timesheets.dto.WorkLogDto
+import akuchars.jira.timesheets.dto.worklogs.SchedulePeriods
+import akuchars.jira.timesheets.dto.worklogs.UserScheduleForm
 import akuchars.jira.timesheets.dto.worklogs.Worklogs
 import akuchars.jira.timesheets.dto.worklogs.WorklogsForm
 import com.atlassian.httpclient.api.HttpClient
@@ -9,11 +11,12 @@ import com.atlassian.util.concurrent.Promise
 import java.net.URI
 import javax.ws.rs.core.UriBuilder
 
-//https://apidocs.tempo.io/
+//https://www.tempo.io/server-api-documentation
 class AsynchronousTimesheetRestClient(httpClient: HttpClient, serverUri: URI) : AbstractAsynchronousRestClient(httpClient), TimesheetRestClient {
 
 	private var baseUriV4: URI = UriBuilder.fromUri(serverUri).path("/rest/tempo-timesheets/4").build()
 	private var baseUriV3: URI = UriBuilder.fromUri(serverUri).path("/rest/tempo-timesheets/3").build()
+	private var baseUriCoreV1: URI = UriBuilder.fromUri(serverUri).path("/rest/tempo-core/1").build()
 
 	override fun createWorkLog(workLog: WorkLogDto): Promise<Void> {
 		return this.post(
@@ -32,6 +35,18 @@ class AsynchronousTimesheetRestClient(httpClient: HttpClient, serverUri: URI) : 
 				.queryParam("dateTo", form.dateTo)
 				.build(),
 			WorkLogsDtoJsonParser()
+		)
+	}
+
+	override fun userSchedule(form: WorklogsForm): Promise<SchedulePeriods> {
+		return this.getAndParse(
+			UriBuilder.fromUri(this.baseUriCoreV1)
+				.path("user/schedule")
+				.queryParam("user", form.username)
+				.queryParam("from", form.dateFrom)
+				.queryParam("to", form.dateTo)
+				.build(),
+			UserScheduleDtoJsonParser()
 		)
 	}
 }

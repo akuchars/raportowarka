@@ -24,7 +24,10 @@ class TimeSheetController : tornadofx.Controller() {
 		PeriodTimeEntry(getTooglWorkLogs(command, tooglCredential.apiToken))
 
 	fun hours(form: WorklogsForm): WorklogsHoursMinutes {
-		return jiraClient.timesheetClient.worklogs(form).claim().countTime()
+		val userSchedulePeriods  = jiraClient.timesheetClient.userSchedule(form).claim()
+		return jiraClient.timesheetClient.worklogs(form).claim().countTime().apply {
+			this.requiredHours = HoursMinutes(userSchedulePeriods.requiredSeconds!!.toLong())
+		}
 	}
 
 	fun createForPeriod(command: SendWorklogActionCommand) {
