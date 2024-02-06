@@ -1,5 +1,6 @@
 package pl.akuchars.v2.jtoggl.domain
 
+import org.springframework.stereotype.Component
 import pl.akuchars.v1.kernel.HoursMinutes
 import pl.akuchars.v2.jtoggl.application.dto.ProjectName
 import pl.akuchars.v2.jtoggl.application.dto.TimeEntry
@@ -7,6 +8,7 @@ import pl.akuchars.v2.jtoggl.application.dto.TimeEntryDescriptions
 import pl.akuchars.v2.jtoggl.application.dto.TimeEntryInformation
 import java.time.LocalDate
 
+@Component
 class DayTimeEntryFactory {
 
     // TODO TimeEntry - zamienić na commanda
@@ -38,22 +40,6 @@ class DayTimeEntryFactory {
             workingEntriesWithNoKey = listOf(),
             isWorkHoursDone = durations / 3600 >= 8.0
         )
-    }
-
-    private fun addToDedicatedList(
-        workingEntries: MutableList<TimeEntryInformation>,
-        privateEntries: MutableList<TimeEntryInformation>,
-        overtimeEntries: MutableList<TimeEntryInformation>,
-        timeEntryInformation: TimeEntryInformation
-    ) {
-        if (timeEntryInformation.isOvertimeEntry) {
-            overtimeEntries += timeEntryInformation
-        }
-        if (timeEntryInformation.isWorkTimeEntry) {
-            workingEntries += timeEntryInformation
-        } else {
-            privateEntries += timeEntryInformation
-        }
     }
 
     private fun createTimeEntryInformation(key: String, entry: List<TimeEntry>): TimeEntryInformation {

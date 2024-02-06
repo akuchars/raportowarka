@@ -1,16 +1,13 @@
-package pl.akuchars.v1.jira.timesheets
+package pl.akuchars.v2.jira.infrastructure
 
-import pl.akuchars.v1.jira.timesheets.dto.WorkLogDto
-import pl.akuchars.v1.jira.timesheets.dto.worklogs.SchedulePeriods
-import pl.akuchars.v1.jira.timesheets.dto.worklogs.Worklogs
-import pl.akuchars.v1.model.WorklogsForm
 import com.atlassian.httpclient.api.HttpClient
 import com.atlassian.jira.rest.client.internal.async.AbstractAsynchronousRestClient
 import com.atlassian.util.concurrent.Promise
-import pl.akuchars.v1.jira.timesheets.TimesheetRestClient
-import pl.akuchars.v1.jira.timesheets.UserScheduleDtoJsonParser
-import pl.akuchars.v1.jira.timesheets.WorkLogDtoJsonGenerator
-import pl.akuchars.v1.jira.timesheets.WorkLogsDtoJsonParser
+import pl.akuchars.v1.model.WorklogsForm
+import pl.akuchars.v2.jira.application.TimesheetRestClient
+import pl.akuchars.v2.jira.application.dto.WorkLogDto
+import pl.akuchars.v2.jira.application.dto.worklogs.SchedulePeriods
+import pl.akuchars.v2.jira.application.dto.worklogs.Worklogs
 import java.net.URI
 import javax.ws.rs.core.UriBuilder
 

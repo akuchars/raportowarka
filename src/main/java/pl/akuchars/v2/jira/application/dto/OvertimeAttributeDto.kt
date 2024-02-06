@@ -1,6 +1,6 @@
-package pl.akuchars.v1.jira.timesheets.dto
+package pl.akuchars.v2.jira.application.dto
 
-import pl.akuchars.v2.jira.application.dto.AttributesDto
+import pl.akuchars.v1.jira.timesheets.dto.AttributesDto
 
 class OvertimeAttributeDto(
 

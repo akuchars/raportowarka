@@ -9,14 +9,15 @@ import pl.akuchars.v2.jtoggl.application.dto.TimeEntryInformation
 
 class DayTimeEntry(
     private var hoursMinutes: HoursMinutes,
-    val workingEntries: List<TimeEntryInformation> = ArrayList(),
-    private val privateEntries: List<TimeEntryInformation> = ArrayList(),
-    private val overtimeEntries: List<TimeEntryInformation> = ArrayList(),
-    val workingEntriesWithNoKey: List<TimeEntryInformation> = ArrayList(),
+    val workingEntries: List<TimeEntryInformation>,
+    private val privateEntries: List<TimeEntryInformation>,
+    private val overtimeEntries: List<TimeEntryInformation>,
+    val workingEntriesWithNoKey: List<TimeEntryInformation>,
     private val isWorkHoursDone: Boolean
 ) {
 
     fun fixToWorkHour() {
+        // TODO Zmienią się propertisy Springowe
         val notFixingIssuesList: List<String> = properties[Key("issue.to.not.fixing.hours", listType(stringType, ";".toRegex()))]
         if (!isWorkHoursDone && workingEntries.isNotEmpty()) {
             val workEntriesToFix = workingEntries

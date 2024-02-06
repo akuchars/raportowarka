@@ -1,7 +1,7 @@
 package pl.akuchars.v1.jira
 
-import pl.akuchars.v1.jira.timesheets.TimesheetRestClient
 import com.atlassian.jira.rest.client.api.JiraRestClient
+import pl.akuchars.v1.jira.timesheets.TimesheetRestClient
 
 
 private lateinit var credential: JiraCredential

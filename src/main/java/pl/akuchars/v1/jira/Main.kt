@@ -1,8 +1,8 @@
 package pl.akuchars.v1.jira
 
 import pl.akuchars.v1.jira.timesheets.TimesheetRestClient
-import pl.akuchars.v1.jira.timesheets.dto.WorkLogDto
 import pl.akuchars.v1.jira.timesheets.dto.OvertimeAttributeDto
+import pl.akuchars.v1.jira.timesheets.dto.WorkLogDto
 import pl.akuchars.v1.model.WorklogsForm
 import java.time.LocalDate
 

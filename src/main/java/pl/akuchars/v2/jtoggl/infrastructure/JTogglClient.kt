@@ -8,6 +8,7 @@ import org.apache.http.params.CoreConnectionPNames
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.JSONValue
+import org.springframework.stereotype.Service
 import pl.akuchars.v2.jtoggl.application.TogglQueryService
 import pl.akuchars.v2.jtoggl.application.dto.Project
 import pl.akuchars.v2.jtoggl.application.dto.TimeEntry
@@ -18,6 +19,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.util.*
 
+@Service
 class JTogglClient(private val credential: TooglCredential) : TogglQueryService {
 
     override fun getTimeEntries(startDate: Date?, endDate: Date?): List<TimeEntry> {
