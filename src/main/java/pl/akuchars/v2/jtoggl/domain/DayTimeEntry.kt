@@ -6,13 +6,15 @@ import com.natpryce.konfig.stringType
 import pl.akuchars.v1.kernel.HoursMinutes
 import pl.akuchars.v1.kernel.properties
 import pl.akuchars.v2.jtoggl.application.dto.TimeEntryInformation
+import java.time.LocalDate
 
 class DayTimeEntry(
     private var hoursMinutes: HoursMinutes,
     val workingEntries: List<TimeEntryInformation>,
+    val day: LocalDate,
     private val privateEntries: List<TimeEntryInformation>,
     private val overtimeEntries: List<TimeEntryInformation>,
-    val workingEntriesWithNoKey: List<TimeEntryInformation>,
+    internal val workingEntriesWithNoKey: List<TimeEntryInformation>,
     private val isWorkHoursDone: Boolean
 ) {
 

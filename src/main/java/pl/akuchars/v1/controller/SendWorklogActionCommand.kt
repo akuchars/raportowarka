@@ -6,5 +6,5 @@ interface SendWorklogActionCommand {
 	fun startDate(): LocalDate
 	fun endDate(): LocalDate
 	fun production(): Boolean
-	fun honnest(): Boolean
+	fun honest(): Boolean
 }

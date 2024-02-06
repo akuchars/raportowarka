@@ -8,19 +8,19 @@ import org.apache.http.params.CoreConnectionPNames
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.JSONValue
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Service
-import pl.akuchars.v2.jtoggl.application.TogglQueryService
+import pl.akuchars.v2.jtoggl.application.TogglRestClient
 import pl.akuchars.v2.jtoggl.application.dto.Project
 import pl.akuchars.v2.jtoggl.application.dto.TimeEntry
 import pl.akuchars.v2.jtoggl.application.dto.Workspace
 import pl.akuchars.v2.jtoggl.domain.*
 import pl.akuchars.v2.jtoggl.domain.util.DateUtil
-import java.time.LocalDate
-import java.time.ZoneId
 import java.util.*
 
 @Service
-class JTogglClient(private val credential: TooglCredential) : TogglQueryService {
+@EnableConfigurationProperties(value = [TogglCredential::class])
+class JTogglClient(private val credential: TogglCredential) : TogglRestClient {
 
     override fun getTimeEntries(startDate: Date?, endDate: Date?): List<TimeEntry> {
         val queryParams = HashMap<String, String?>()

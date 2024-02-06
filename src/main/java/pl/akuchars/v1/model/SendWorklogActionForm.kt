@@ -12,5 +12,5 @@ class SendWorklogActionForm(
 	override fun startDate(): LocalDate = start
 	override fun endDate(): LocalDate = end
 	override fun production(): Boolean = production
-	override fun honnest(): Boolean = honest
+	override fun honest(): Boolean = honest
 }

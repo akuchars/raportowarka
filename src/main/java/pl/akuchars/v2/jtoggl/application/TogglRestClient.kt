@@ -5,7 +5,7 @@ import pl.akuchars.v2.jtoggl.application.dto.TimeEntry
 import pl.akuchars.v2.jtoggl.application.dto.Workspace
 import java.util.*
 
-interface TogglQueryService {
+internal interface TogglRestClient {
     fun getTimeEntries(startDate: Date?, endDate: Date?): List<TimeEntry>
     fun workspaces(): List<Workspace>
     fun projects(): List<Project>

@@ -22,6 +22,6 @@ class JiraClientConfiguration {
     }
 }
 
-val JiraRestClient.timesheetClient: TimesheetRestClient
+internal val JiraRestClient.timesheetClient: TimesheetRestClient
     get() = jiraRestClient.timesheetClient
 

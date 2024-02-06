@@ -12,7 +12,7 @@ import java.time.LocalDate
 class DayTimeEntryFactory {
 
     // TODO TimeEntry - zamienić na commanda
-    fun createDayTime(day: LocalDate?, entries: List<TimeEntry>): DayTimeEntry {
+    fun createDayTime(day: LocalDate, entries: List<TimeEntry>): DayTimeEntry {
         val durations = entries.mapNotNull(TimeEntry::duration).sum().toDouble()
 
         // TODO HoursMinutes zamienić na Duration
@@ -21,7 +21,7 @@ class DayTimeEntryFactory {
             .groupBy(TimeEntry::key)
             .filterKeys { it is String }
             .mapKeys { it.toString() }
-            .map { (key: String, e: List<TimeEntry>) ->  createTimeEntryInformation(key, e)}
+            .map { (key: String, e: List<TimeEntry>) -> createTimeEntryInformation(key, e) }
 
 
         groupedInformation.forEach { timeEntryInformation ->
@@ -32,6 +32,7 @@ class DayTimeEntryFactory {
 
         return DayTimeEntry(
             hoursMinutes = hoursMinutes,
+            day = day,
             workingEntries = groupedInformation.filter(TimeEntryInformation::isOvertimeEntry),
             privateEntries = groupedInformation.filter(TimeEntryInformation::isWorkTimeEntry),
             overtimeEntries = groupedInformation

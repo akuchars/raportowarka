@@ -1,7 +1,5 @@
 package pl.akuchars.v2.jira.application.dto
 
-import pl.akuchars.v2.jira.application.dto.OvertimeAttributeDto
-
 class WorkLogDto(
 	val worker: String,
 	val comment: String,

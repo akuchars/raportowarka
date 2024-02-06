@@ -1,7 +1,6 @@
 package pl.akuchars.v1.jira.timesheets.dto.worklogs
 
 import com.google.gson.annotations.SerializedName
-import pl.akuchars.v2.jira.application.dto.worklogs.IssueType
 
 internal data class Issue(
 

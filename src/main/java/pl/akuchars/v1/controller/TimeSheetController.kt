@@ -91,7 +91,7 @@ class TimeSheetController : tornadofx.Controller() {
 	private fun getTooglWorkLogs(command: SendWorklogActionCommand, togglApiToken: String): List<DayTimeEntry> {
 		val jToggl = JTogglClient(togglApiToken)
 		return jToggl.timeEntriesByDay(command.startDate(), command.endDate()).onEach {
-			if (!command.honnest()) {
+			if (!command.honest()) {
 				it.fixToWorkHour()
 			}
 			if (it.workingEntriesWithNoKey.isNotEmpty())

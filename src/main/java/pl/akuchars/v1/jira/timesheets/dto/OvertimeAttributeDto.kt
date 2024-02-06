@@ -5,8 +5,8 @@ import pl.akuchars.v2.jira.application.dto.AttributesDto
 class OvertimeAttributeDto(
 
 	val _Overtime_: AttributesDto = AttributesDto(
-		"Overtime", "2", 1L
-	)
+        "Overtime", "2", 1L
+    )
 )
 
 class AttributesDto(

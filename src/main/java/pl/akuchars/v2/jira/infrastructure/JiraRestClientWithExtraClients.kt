@@ -13,7 +13,7 @@ import java.net.URI
 class JiraRestClientWithExtraClients(jiraCredential: JiraCredential) {
 
 	var jiraRestClient: JiraRestClient
-	var timesheetClient: TimesheetRestClient
+	internal var timesheetClient: TimesheetRestClient
 
 	init {
 		val authenticationHandler: AuthenticationHandler = BasicHttpAuthenticationHandler(jiraCredential.user, jiraCredential.password)

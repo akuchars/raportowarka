@@ -1,9 +1,6 @@
 package pl.akuchars.v2.jira.application.dto
 
 import com.google.gson.annotations.SerializedName
-import pl.akuchars.v2.jira.application.dto.Attributes
-import pl.akuchars.v2.jira.application.dto.Issue
-import pl.akuchars.v2.jira.application.dto.Location
 
 
 data class WorkLogResultDto(
