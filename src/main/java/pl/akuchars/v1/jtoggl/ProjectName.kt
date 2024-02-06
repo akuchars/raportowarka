@@ -16,8 +16,8 @@ class ProjectName(private val code: String, val isWorkProject: Boolean, val isOv
 }
 
 object Projects {
-	private val projectKeySeparator = Key("toogl.working.projects.list.separator", stringType)
+	private val projectKeySeparator = Key("toggl.working.projects.list.separator", stringType)
 	private val projectsSeparator: String = properties[projectKeySeparator]
-	private val projectKey = Key("toogl.working.projects.list", listType(stringType, projectsSeparator.toRegex()))
+	private val projectKey = Key("toggl.working.projects.list", listType(stringType, projectsSeparator.toRegex()))
 	val values: List<String> = properties[projectKey]
 }

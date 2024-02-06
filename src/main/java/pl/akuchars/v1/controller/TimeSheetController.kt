@@ -15,12 +15,12 @@ import kotlin.math.max
 
 class TimeSheetController : tornadofx.Controller() {
 	// todo pl.akuchars tutaj to powinno być wstrzyknięte
-	private val tooglCredential: TooglCredential = TooglCredential()
+	private val togglCredential: TogglCredential = TogglCredential()
 	private val jiraCredential: JiraCredential = JiraCredential()
 	private val jiraClient = createWithExtraClients(jiraCredential)
 
 	fun worklogsForPeriod(command: SendWorklogActionCommand): PeriodTimeEntry =
-		PeriodTimeEntry(getTooglWorkLogs(command, tooglCredential.apiToken))
+		PeriodTimeEntry(getTooglWorkLogs(command, togglCredential.apiToken))
 
 	fun hours(form: WorklogsForm): WorklogsHoursMinutes {
 		val userSchedulePeriods  = jiraClient.timesheetClient.userSchedule(form).claim()
@@ -30,7 +30,7 @@ class TimeSheetController : tornadofx.Controller() {
 	}
 
 	fun createForPeriod(command: SendWorklogActionCommand) {
-		val timeEntriesByDay = getTooglWorkLogs(command, tooglCredential.apiToken)
+		val timeEntriesByDay = getTooglWorkLogs(command, togglCredential.apiToken)
 
 		val workLogsDto = mapToJiraWorkLog(timeEntriesByDay) { timeEntry ->
 			val currentRemaining = (jiraClient.issueClient.getIssue(timeEntry.key)
