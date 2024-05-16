@@ -42,7 +42,7 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>3.1.0</version>
+            <version>5.4.0</version>
         </dependency>
         <dependency>
             <groupId>com.atlassian.jira</groupId>
@@ -72,8 +72,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -89,12 +87,6 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.10.1</version>
-        </dependency>
-        <dependency>
-            <groupId>no.tornado</groupId>
-            <artifactId>tornadofx</artifactId>
-            <version>1.7.20</version>
         </dependency>
         <dependency>
             <groupId>org.koin</groupId>
@@ -106,6 +98,11 @@
             <artifactId>konfig</artifactId>
             <version>1.6.10.0</version>
         </dependency>
+		<dependency>
+			<groupId>no.tornado</groupId>
+			<artifactId>tornadofx</artifactId>
+			<version>1.7.20</version>
+		</dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
@@ -117,7 +114,6 @@
             <version>11.0.2</version>
         </dependency>
     </dependencies>
-    
     <build>
         <plugins>
 			<plugin>

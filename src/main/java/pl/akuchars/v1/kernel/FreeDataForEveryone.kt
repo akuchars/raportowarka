@@ -12,7 +12,7 @@ import kotlin.reflect.KClass
 val allLoggersMap = ConcurrentHashMap<KClass<*>, Logger>()
 
 internal val propertiesLazy = lazy {
-    ConfigurationProperties.fromResource("defaults.properties")
+    ConfigurationProperties.fromResource("default.v1.properties")
 }
 
 inline val <reified T : Any> KClass<T>.logger: Logger

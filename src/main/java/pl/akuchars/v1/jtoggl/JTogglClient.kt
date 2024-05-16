@@ -137,16 +137,19 @@ class JTogglClient(private val user: String?, private val password: String) {
 					.filter(RequestLoggingFilter())
 					.filter(ResponseLoggingFilter())
 			}
-			return result.auth().preemptive().basic(user, password).contentType(ContentType.JSON)
+			return result.auth()
+                .preemptive()
+                .basic(user, password)
+                .contentType(ContentType.JSON)
 		}
 
 	companion object {
 		private const val API_ROOT = "https://api.track.toggl.com/api"
-		private const val API_VERSION = 8
+		private const val API_VERSION = 9
 		private val API_BASE = String.format("%s/v%d/", API_ROOT, API_VERSION)
 		private const val PLACEHOLDER = "{0}"
 		private const val SIMPLE_ID_PATH = "/$PLACEHOLDER"
-		private val TIME_ENTRIES = API_BASE + "time_entries"
+		private val TIME_ENTRIES = API_BASE + "me/time_entries"
 		private val WORKSPACES = API_BASE + "workspaces"
 		private val WORKSPACE_BY_ID = WORKSPACES + SIMPLE_ID_PATH
 		private val WORKSPACE_USERS = "$WORKSPACE_BY_ID/users"
